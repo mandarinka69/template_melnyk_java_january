@@ -1,0 +1,22 @@
+ext {
+    junitVersion = '5.1.0'
+    restAssuredVersion = '3.3.0'
+    jacksonDatabindVersion = '2.9.5'
+}
+
+dependencies {
+    // compile used in all module or project
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion"
+
+
+    // testCompile used only in src/test
+    testCompile "io.rest-assured:rest-assured:$restAssuredVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+test {
+    useJUnitPlatform()
+
+    test.outputs.upToDateWhen {false}
+}

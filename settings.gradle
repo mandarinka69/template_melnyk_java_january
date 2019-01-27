@@ -1,0 +1,3 @@
+rootProject.name = 'template_melnyk_java_january'
+include 'api-tests-gradle'
+
