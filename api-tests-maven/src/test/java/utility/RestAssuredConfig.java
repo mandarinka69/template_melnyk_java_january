@@ -7,7 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 
 public class RestAssuredConfig {
-    public static final String baseURI = "http://68.183.66.190/";
+    public static final String baseURI = "http://35.246.254.107/";
 
     public RestAssuredConfig() {
         RestAssured.registerParser("text/plain", Parser.JSON);

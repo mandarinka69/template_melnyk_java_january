@@ -16,7 +16,6 @@ public class ApiCardTest {
         user = new User();
         user.register();
         card = new Card(user.getId());
-
     }
 
     @Test
