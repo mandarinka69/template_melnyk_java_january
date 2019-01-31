@@ -2,15 +2,16 @@ ext {
     junitVersion = '5.1.0'
     restAssuredVersion = '3.3.0'
     jacksonDatabindVersion = '2.9.5'
+    allureRestAssuredVersion = '2.7.0'
 }
 
 dependencies {
     // compile used in all module or project
     compile "com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion"
+    compile "io.rest-assured:rest-assured:$restAssuredVersion"
+    compile "io.qameta.allure:allure-rest-assured:$allureRestAssuredVersion"
 
 
-    // testCompile used only in src/test
-    testCompile "io.rest-assured:rest-assured:$restAssuredVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
@@ -19,4 +20,16 @@ test {
     useJUnitPlatform()
 
     test.outputs.upToDateWhen {false}
+}
+
+allure {
+    version = '2.5.0'
+//    aspectjVersion = true
+    configuration = 'compile'
+    aspectjweaver = true
+
+    useJUnit5 {
+        version = '2.7.0'
+    }
+    
 }
