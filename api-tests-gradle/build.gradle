@@ -1,3 +1,19 @@
+plugins {
+    id 'org.assertj.generator' version '0.0.6b'
+}
+
+sourceSets {
+    main {
+        // must specify assertJ block to have it applied
+        assertJ { }
+    }
+}
+
+assertJ {
+    // default: generated-srcs/${SOURCE_SET_NAME_TAG}/java
+    outputDir = "src-gen/${SOURCE_SET_NAME_TAG}/java"
+}
+
 ext {
     junitVersion = '5.1.0'
     restAssuredVersion = '3.3.0'
@@ -11,13 +27,30 @@ dependencies {
     compile "io.rest-assured:rest-assured:$restAssuredVersion"
     compile "io.qameta.allure:allure-rest-assured:$allureRestAssuredVersion"
 
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    compile group: 'org.aeonbits.owner', name: 'owner', version: '1.0.10'
+
+    compile group: 'com.github.javafaker', name: 'javafaker', version: '0.17.2'
+
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
+
 }
 
 test {
     useJUnitPlatform()
+
+    systemProperties = System.getProperties()
+
+    testLogging{
+        showStandardStreams = true
+        exceptionFormat = 'full'
+
+    }
 
     test.outputs.upToDateWhen {false}
 }

@@ -1,5 +1,6 @@
 package com.example.conditions;
 
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import lombok.AllArgsConstructor;
 
@@ -9,12 +10,12 @@ public class StatusCodeCondition implements Condition {
     private final Integer expecterStatusCode;
 
     @Override
-    public void  check(ValidatableResponse response) {
-        response.assertThat().statusCode(expecterStatusCode);
+    public void  check(Response response) {
+        response.then().assertThat().statusCode(expecterStatusCode);
     }
 
     @Override
     public String toString() {
-        return "status code is "+expecterStatusCode+"";
+        return "Expected status code is "+expecterStatusCode+"";
     }
 }

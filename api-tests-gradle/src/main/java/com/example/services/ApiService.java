@@ -12,7 +12,8 @@ public abstract class ApiService {
     public RequestSpecification setup(){
         return RestAssured.given()
                 .contentType(ContentType.JSON)
-                .log().all()
+                .accept(ContentType.JSON)
+//                .log().all()
                 .filters(new AllureRestAssured(),
                         new RequestLoggingFilter(),
                         new ResponseLoggingFilter());
