@@ -1,11 +1,15 @@
 import com.example.ProjectConfig;
 import com.example.model.UserLoginFromMobile;
 import com.example.services.UserApiService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.example.conditions.Conditions.statusCode;
@@ -21,9 +25,8 @@ public class DeleteNotification {
     }
 
     @Test
-    public void createNotificationTest(){
+    public void deleteNotificationTest(){
         //body
-
         UserLoginFromMobile userLoginFromMobile = new UserLoginFromMobile()
                 .setPhoneNumberAuto("0971927133")
                 .setPasswordAuto("25d55ad283aa400af464c76d713c07ad");
@@ -33,9 +36,20 @@ public class DeleteNotification {
                         .shouldHave(statusCode(200)).getCookies();
 
 
-        //all delete
-        userApiService.sendGet(" http://api.mobile.rest.auto.ria.com/subscribe/profiles/user/all/?withSubs=1", cookies)
-                .shouldHave(statusCode(200));
+        //витягуємо всі підписки
+        String notificationId =  userApiService.sendGet("http://api.mobile.rest.auto.ria.com/subscribe/subs/user/all/", cookies)
+                .shouldHave(statusCode(200))
+                .jsonPath()
+                .and()
+                .getString("id");
+
+        System.out.println("-------------------");
+        System.out.println(notificationId);
+
+
+        //видаляємо підписку по ід
+        userApiService.sendDelete("http://api.mobile.rest.auto.ria.com/subscribe/subs/"+notificationId, cookies);
+
 
     }
 }

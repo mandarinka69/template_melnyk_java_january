@@ -3,6 +3,7 @@ package com.example.assertions;
 import com.example.conditions.Condition;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ public class AssertableResponse {
 
     @Step("api response should have {condition}")
     public AssertableResponse shouldHave(Condition condition){
-        log.info("About to check condition [ " + condition+" ]");
+//        log.info("About to check condition [ " + condition+" ]");
         condition.check(response);
         return this;
     }
@@ -48,5 +49,9 @@ public class AssertableResponse {
 
     public Map<String, String> getCookies() {
         return response.getCookies();
+    }
+
+    public JsonPath jsonPath() {
+       return response.jsonPath();
     }
 }

@@ -22,6 +22,8 @@ public class CreateNewNotificationTest {
 
     @BeforeAll
     static void setUp() {
+//            Map myVars = new HashMap();
+//            myVars.put("env", System.getProperty("env", "env"));
 
         RestAssured.baseURI = ConfigFactory.create(ProjectConfig.class).apiAuto();
     }
@@ -46,7 +48,7 @@ public class CreateNewNotificationTest {
                 .shouldHave(statusCode(200))
                 .shouldHave(bodyField("active", containsString("1")))
                 .shouldHave(bodyField("activeMobile", not(isEmptyString())))
-                .shouldHave(bodyField("id", not(isEmptyString())))
+                .shouldHave(bodyField("id", greaterThan(65000)))
                 .shouldHave(bodyField("profileId", not(isEmptyString())))
                 .shouldHave(bodyField("stringId", not(isEmptyString())))
                 .shouldHave(bodyField("stringIdNew", not(isEmptyString())))

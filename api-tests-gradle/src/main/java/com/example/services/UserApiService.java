@@ -70,6 +70,7 @@ public class UserApiService extends ApiService{
                 .when()
                 .post(postResponce));
     }
+
     @Step
     public AssertableResponse sendGet(String postResponce, Map<String, ?> cookies){
         return new AssertableResponse(setup()
@@ -77,6 +78,14 @@ public class UserApiService extends ApiService{
                 .cookies(cookies)
                 .when()
                 .get(postResponce));
+    }
+
+    public AssertableResponse sendDelete(String deleteResponce, Map<String, ?> cookies){
+
+        return new AssertableResponse(setup()
+                .cookies(cookies)
+                .when()
+                .delete(deleteResponce));
     }
 
 }
